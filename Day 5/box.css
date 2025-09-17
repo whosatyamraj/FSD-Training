@@ -1,0 +1,25 @@
+#container-box{
+    display:flex;
+    flex-direction: row;
+    height:100 px;
+    width:200 px;
+    gap:2px;
+}
+.box{
+    width:160 px;
+    border:2px solid gray;
+}
+.box:nth-child(1){
+    display:grid;
+    grid-template-row:repeat(2,1fr);
+}
+#head{
+    background-color:black;
+    color:white;
+    text-align:center;
+}
+#footer{
+    background-color:black;
+    color:white;
+    font-size:small;
+}
