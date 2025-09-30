@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Age Calculator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 40px;
+      background-color: #f4f6f8;
+    }
+    h2 {
+      color: #34495e;
+    }
+    input[type="date"] {
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    button:hover {
+      background-color: #2980b9;
     }
     #output {
       margin-top: 20px;
@@ -16,7 +38,8 @@
 </head>
 <body>
   <h2>Enter Your Date of Birth</h2>
-  <input type="date" id="dob">
+  <label for="dob">Date of Birth:</label>
+  <input type="date" id="dob" title="Select your date of birth" placeholder="YYYY-MM-DD">
   <button onclick="generateAge()">Generate Age</button>
 
   <div id="output"></div>
@@ -31,18 +54,23 @@
         return;
       }
 
-      const dob = new Date(dobValue);
+      const dob = new Date(dobValue + 'T00:00:00'); // Normalize time
       const today = new Date();
 
-      let age = today.getFullYear() - dob.getFullYear();
-      const month = today.getMonth() - dob.getMonth();
-      const day = today.getDate() - dob.getDate();
+      if (dob > today) {
+        outputDiv.innerHTML = "🚫 Date of birth cannot be in the future.";
+        return;
+      }
 
-      if (month < 0 || (month === 0 && day < 0)) {
+      let age = today.getFullYear() - dob.getFullYear();
+      const monthDiff = today.getMonth() - dob.getMonth();
+      const dayDiff = today.getDate() - dob.getDate();
+
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
         age--;
       }
 
-      
+      outputDiv.innerHTML = `🎉 You are <strong>${age}</strong> years old.`;
     }
   </script>
 </body>
